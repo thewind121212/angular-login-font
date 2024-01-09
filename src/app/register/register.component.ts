@@ -9,6 +9,7 @@ import { NgIf } from '@angular/common';
 import { misMatchValidator } from '../../utils/validatorFn.utils';
 import { ActivatedRoute, Router } from '@angular/router';
 import {v4 as uuidv4} from 'uuid'
+import validate from 'uuid-validate'
 
 @Component({
   selector: 'app-register',
@@ -27,6 +28,7 @@ export class RegisterComponent {
   http = inject(HttpClient)
 
   ngOnInit() {
+    console.log(validate('lsdjflsjld',4))
     const searchParams = this.route.snapshot.queryParams
     if (!searchParams['uuid'] || (!searchParams['register_step'])) {
       const uuidGenerate = uuidv4() 
@@ -35,8 +37,6 @@ export class RegisterComponent {
         queryParams: {...searchParams, uuid: uuidGenerate, register_step: 'signupForm'}
       })
     }
-    console.log(uuidv4())
-    console.log()
   }
 
 
