@@ -1,0 +1,3 @@
+<button *ngIf="button.type == 'google' " class="flex justify-center items-center w-full h-[45px] border-[#E8E8E8] border-[1.5px] rounded-md gap-[13px]" ><img src="{{ imgGoogle }}" alt=""> <span>{{ button.content }}</span> </button>
+<button *ngIf="button.type == 'default' " class="w-full h-[45px] border-[#E8E8E8] border-[1.5px] rounded-md" > {{ button.content }} </button>
+<button *ngIf="button.type == 'invert' " class="w-full h-[45px] border-[#7F265B] text-white bg-[#7F265B] border-[1.5px] rounded-md" > {{ button.content }} </button>

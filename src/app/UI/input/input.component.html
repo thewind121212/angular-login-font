@@ -1,0 +1,40 @@
+<div
+  class="c-form-field w-auto h-auto flex flex-col mb-[8px] justify-center gap-[8px]"
+  [ngClass]="{ 'mb-[24px]': input.id === 1 }"
+  [formGroup]="input.formGroup"
+>
+  <label for="{{ input.formControlName }}" class="text-[14px] text-[#828282]">
+    {{ input.label }}
+  </label>
+  <input
+    type="{{ input.type }}"
+    id="{{ input.formControlName }}"
+    class="h-[45px] border-[1.5px] border-[#DED2D9] rounded-md p-3"
+    [ngClass]="{
+      'border-[2px] border-red-600':
+        !validitorFunc(input.controller) && input.controller.dirty,
+      'border-[2px] border-green-600': validitorFunc(input.controller)
+    }"
+    formControlName="{{ input.formControlName }}"
+  />
+
+  <div
+    *ngIf="input.formControlName === 'password'"
+    class="w-[100%] flex justify-between flex-wrap items-center h-[40px] mt-[20px] overflow-hidden duration-300 px-[4px]"
+    [ngClass]="{ 'reset my-0 ': input.controller.value === '' }"
+  >
+    <div class="relative w-[100%] h-[5px] left-0 rounded-[2.5px] bg-[#EFEFEF]">
+      <div
+        class="streng {{
+          passwordStreng(input.controller, input.formControlName)
+        }} "
+        [ngClass]="{
+          notDirty: input.controller.value === ''
+        }"
+      ></div>
+    </div>
+    <div class="text-[14px] w-full flex justify-end items-right">
+      {{ passwordStreng(input.controller, input.formControlName) }}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+.reset {
+    height: 0 !important;
+    margin-top: 0px !important;
+}
+
+.notDirty {
+width: 0% !important;
+}
+
+.streng {
+position: absolute;
+top: 0;
+left: 0;
+height: 5px;
+border-radius: 2.5px;
+background-color: transparent;
+transition: all 500ms;
+z-index: 10;
+    
+}
+
+.weak {
+background-color: #F74849;
+width: 10%;
+}
+
+.Weak {
+width: 30%;
+background-color: #FCE331;
+}
+
+.Medium {
+width: 30%;
+background-color: #FCE331;
+}
+
+.Strong {
+width: 100%;
+background-color: #41DCA3;
+}

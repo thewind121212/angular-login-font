@@ -27,7 +27,8 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": [],
+            "scripts": [
+            ],
             "server": "src/main.server.ts",
             "prerender": true,
             "ssr": {
@@ -65,7 +66,8 @@
               "buildTarget": "login-with-go:build:production"
             },
             "development": {
-              "buildTarget": "login-with-go:build:development"
+              "buildTarget": "login-with-go:build:development",
+              "proxyConfig": "src/proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
@@ -91,10 +93,14 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+            ]
           }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "c6cb5fb4-5036-4d2c-bab0-80c5c4b30054"
   }
 }
