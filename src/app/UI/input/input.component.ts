@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { InputInterface } from './input'; 
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Component, ElementRef, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { InputInterface } from './input';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { passwordStrength } from 'check-password-strength';
 import { NgClass, NgIf } from '@angular/common';
 
@@ -14,16 +14,19 @@ import { NgClass, NgIf } from '@angular/common';
 
 export class InputComponent {
   @Input() input!: InputInterface;
-  @Input() validitorFunc: (controller :FormControl) => boolean;
-  @Input() passwordStreng: (form: FormControl, formName : string ) => void
+  @Input() validitorFunc: (controller: FormControl) => boolean;
+  @Input() passwordStreng: (form: FormControl, formName: string) => void
+  @Input() otpError: boolean = false
+
+  @ViewChild('otpInput') otpInput!: ElementRef
 
   constructor() {
     this.validitorFunc = (controller) => {
       return (controller.valid && controller.dirty)
     }
-    this.passwordStreng = (form , formName) => {
+    this.passwordStreng = (form, formName) => {
       if (formName === 'password') {
-         return passwordStrength(form.value).value 
+        return passwordStrength(form.value).value
       }
       return null
     }

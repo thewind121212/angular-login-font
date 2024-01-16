@@ -1,9 +1,10 @@
 <div
+  *ngIf="input.label !== 'none'"
   class="c-form-field w-auto h-auto flex flex-col mb-[8px] justify-center gap-[8px]"
   [ngClass]="{ 'mb-[24px]': input.id === 1 }"
   [formGroup]="input.formGroup"
 >
-  <label for="{{ input.formControlName }}" class="text-[14px] text-[#828282]">
+  <label for="{{ input.formControlName }}" class="text-[14px] text-[#06244F]">
     {{ input.label }}
   </label>
   <input
@@ -23,7 +24,7 @@
     class="w-[100%] flex justify-between flex-wrap items-center h-[40px] mt-[20px] overflow-hidden duration-300 px-[4px]"
     [ngClass]="{ 'reset my-0 ': input.controller.value === '' }"
   >
-    <div class="relative w-[100%] h-[5px] left-0 rounded-[2.5px] bg-[#EFEFEF]">
+    <div class="relative w-[100%] h-[5px] left-0 rounded-[2.5px] bg-[#06244F]">
       <div
         class="streng {{
           passwordStreng(input.controller, input.formControlName)
@@ -37,4 +38,22 @@
       {{ passwordStreng(input.controller, input.formControlName) }}
     </div>
   </div>
+</div>
+<!-- input UI for OTP -->
+<div
+  class="w-[48px] h-[48px] bg-[#ECECEC] border-[#ECECEC]  border rounded-xl text-center overflow-hidden duration-200"
+  [ngClass]="{ 'border-[#F87595] bg-[#f8759665]': otpError,}"
+  *ngIf="input.label == 'none'"
+  [formGroup]="input.formGroup"
+>
+  <input
+    type="{{ input.type }}"
+    #otpInput
+    inputmode="numeric"
+    maxlength="1"
+    oninput="this.value=this.value.replace(/[^0-9]/g,'');"
+    id="{{ input.formControlName }}"
+    class="h-full w-full text-[20px] text-center outline-none border-0 border-transparent bg-transparent"
+    formControlName="{{ input.formControlName }}"
+  />
 </div>

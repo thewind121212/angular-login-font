@@ -1,3 +1,33 @@
-<button *ngIf="button.type == 'google' " class="flex justify-center items-center w-full h-[45px] border-[#E8E8E8] border-[1.5px] rounded-md gap-[13px]" ><img src="{{ imgGoogle }}" alt=""> <span>{{ button.content }}</span> </button>
-<button *ngIf="button.type == 'default' " class="w-full h-[45px] border-[#E8E8E8] border-[1.5px] rounded-md" > {{ button.content }} </button>
-<button *ngIf="button.type == 'invert' " class="w-full h-[45px] border-[#7F265B] text-white bg-[#7F265B] border-[1.5px] rounded-md" > {{ button.content }} </button>
+<button
+  *ngIf="button.type == 'google'"
+  [disabled]="button.isDisabled"
+  [ngClass]="{
+    'bg-[#E5E5E5] border-[#E5E5E5]  text-[#717171]': button.isDisabled
+  }"
+  class="flex justify-center items-center w-full h-[45px] border-[#06244F] border-[1.5px] rounded-md gap-[13px] duration-200"
+>
+  <img src="{{ imgGoogle }}" alt="" /> <span>{{ button.content }}</span>
+</button>
+<button
+  *ngIf="button.type == 'default'"
+  [disabled]="button.isDisabled"
+  [ngClass]="{
+    'bg-[#E5E5E5] border-[#E5E5E5] text-[#717171]': button.isDisabled
+  }"
+  class="w-full h-[45px] border-[#E8E8E8] border-[1.5px] rounded-md duration-200"
+>
+  {{ button.content }}
+</button>
+<button
+  *ngIf="button.type == 'invert'"
+  [disabled]="button.isDisabled"
+  class="w-full h-[45px] border-[#7F265B] text-white bg-[#7F265B] border-[1.5px] rounded-md duration-200 flex justify-center items-center"
+  [ngClass]="{
+    'bg-[#E5E5E5] border-[#E5E5E5] text-[#717171]': button.isDisabled
+  }"
+>
+  <span *ngIf="button.buttonStatus === 'normal'">
+    {{ button.content }}
+  </span>
+  <img *ngIf="button.buttonStatus === 'loading'"  class="w-[40px]" src="https://firebasestorage.googleapis.com/v0/b/static-only-2ff95.appspot.com/o/UI%2Ftube-spinner.svg?alt=media&token=3874da1f-84c0-42b9-af2f-70e846bc70c5" alt="">
+</button>

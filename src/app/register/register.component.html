@@ -1,5 +1,5 @@
 <section *ngIf="route.snapshot.queryParams['register_step'] === 'signupForm'" >
-<div class="w-full h-auto min-h-[800px] min-w-[375px] p-4">
+<div class="w-full h-auto min-h-[800px] min-w-[375px] p-4 bg-[#f5edee]">
   <div class="w-full h-auto flex justify-center items-center flex-wrap">
     <div class="w-[420px] h-auto py-[10vh]">
       <div class="c-header w-auto h-auto">
@@ -19,9 +19,9 @@
       <app-button [button]="loginWithGoogle"></app-button>
       <!-- sperate 3rd login with vanilla login -->
       <div class="w-full flex justify-center items-center my-[36px]">
-        <span class="text-[#DDDDDD]">--------------</span>
-        <span class="mx-[5px] text-[#A1A1A1]">or</span>
-        <span class="text-[#DDDDDD]">--------------</span>
+        <span class="text-[#66666]">--------------</span>
+        <span class="mx-[5px] text-[#66666]">or</span>
+        <span class="text-[#66666]">--------------</span>
       </div>
       <!-- form login -->
       <form
@@ -33,6 +33,7 @@
         <app-input [input]="firstName" ></app-input>
         <app-input [input]="lastName"></app-input>
       </div>
+        <app-input [input]="userName"></app-input>
         <app-input [input]="email"></app-input>
         <app-input [input]="phoneNumber"></app-input>
         <app-input [input]="password"></app-input>
@@ -46,13 +47,5 @@
 </section>
 
 <section *ngIf="route.snapshot.queryParams['register_step'] === 'verify_with_otp'" >
-  <div class="min-w-[100vw] min-h-[100vh]">
-      <div class="">Hinh</div> 
-    <div class="">Check your email</div>    
-    <div class="">your gmail</div>    
-    <div class="">verification code</div>    
-    <div class="">otpp</div>    
-    <div class="">Did't get the email? Resend or edit your email address</div>    
-  </div> 
-
+<app-verify-with-otp></app-verify-with-otp>
 </section>

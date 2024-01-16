@@ -1,0 +1,94 @@
+<div
+  *ngIf="verifyStatus === 'pending'"
+  class="min-w-[100vw] min-h-[100vh] flex justify-center items-center flex-col"
+>
+  <img
+    src="https://firebasestorage.googleapis.com/v0/b/static-only-2ff95.appspot.com/o/angular%2Fmail.png?alt=media&token=71c9828e-9167-471d-9aaa-26537b134a6d"
+    class="w-[200px] h-auto"
+    alt=""
+  />
+  <div class="w-[432px] h-auto mt-[32px]">
+    <div
+      class="text-[32px] text-[#33475b] w-full flex justify-center items-center mb-[8px]"
+    >
+      Check Your Email
+    </div>
+    <div class="text-[17px]">
+      Please enter the verification code we sent to:
+    </div>
+    <div class="mt-[4px] text-[17px] font-bold">{{ email }}</div>
+    <div class="mt-[24px] mb-[32px] text-[17px]">verification code:</div>
+    <div class="">
+      <form
+        class="w-full h-auto"
+        [formGroup]="otpForm"
+        (ngSubmit)="verifyOtp()"
+      >
+        <div class="grid grid-flow-col grid-cols-6 gap-[8px] mb-[24px]">
+          <app-input
+            [input]="otp1"
+            (keydown)="onPress($event, '1')"
+            [otpError]="isOTPError"
+            (paste)="onPaste($event)"
+          ></app-input>
+          <app-input
+            [input]="otp2"
+            (keydown)="onPress($event, '2')"
+            [otpError]="isOTPError"
+            (paste)="onPaste($event)"
+          ></app-input>
+          <app-input
+            [input]="otp3"
+            (keydown)="onPress($event, '3')"
+            [otpError]="isOTPError"
+            (paste)="onPaste($event)"
+          ></app-input>
+          <app-input
+            [input]="otp4"
+            (keydown)="onPress($event, '4')"
+            [otpError]="isOTPError"
+            (paste)="onPaste($event)"
+          ></app-input>
+          <app-input
+            [input]="otp5"
+            (keydown)="onPress($event, '5')"
+            [otpError]="isOTPError"
+            (paste)="onPaste($event)"
+          ></app-input>
+          <app-input
+            [input]="otp6"
+            (keydown)="onPress($event, '6')"
+            [otpError]="isOTPError"
+            (paste)="onPaste($event)"
+          ></app-input>
+        </div>
+        <app-button [button]="verifyBtn"></app-button>
+      </form>
+    </div>
+    <div class="text-[#F62434] mt-[8px] h-[24px] duration-200">
+      <span *ngIf="isOTPError"> Your otp is invalid ! </span>
+    </div>
+    <div class="mt-[24px]">
+      Did't get the email?
+      <span class="text-[#0b8484]"> Resend or edit your email address </span>
+    </div>
+  </div>
+</div>
+
+<div
+  *ngIf="verifyStatus === 'complete'"
+  class="min-w-[100vw] min-h-[100vh] flex justify-center items-center flex-col"
+>
+  <img
+    src="https://firebasestorage.googleapis.com/v0/b/static-only-2ff95.appspot.com/o/angular%2F5699123.png?alt=media&token=8946cdaf-b6a3-4c7f-accb-1dba8ba3a4df"
+    class="w-[400px] h-auto"
+    alt=""
+  />
+  <div class="w-[400px] h-auto">
+    <p class="text-center text-[24px] mb-[12px]">Thanks for create account</p>
+    <p class="text-[14px] text-center">
+      If you have any questions or need assistance, please contact our support
+      team at <a class="text-[#0b8484]" href="mailto:admin&#64;wliafdew.dev">admin&#64;wliafdew.dev</a>.
+    </p>
+  </div>
+</div>

@@ -28,20 +28,23 @@ export class LoginComponent {
     content: 'Login'
   }
 
-  // userName : InputInterface = {
-  //   formGroup: this.loginForm,
-  //   type: 'text',
-  //   label: 'User Name',
-  //   formControlName: 'userNameLogin',
-    
-  // }
+  userName : InputInterface = {
+    id: 2,
+    formGroup: this.loginForm,
+    type: 'text',
+    label: 'User Name',
+    formControlName: 'userNameLogin',
+    controller: this.loginForm.controls.userNameLogin, 
+  }
 
-  // password : InputInterface = {
-  //   formGroup: this.loginForm,
-  //   type: 'password',
-  //   label: 'Password',
-  //   formControlName: 'password',
-  // }
+  password : InputInterface = {
+    id: 2,
+    formGroup: this.loginForm,
+    type: 'password',
+    label: 'Password',
+    formControlName: 'password',
+    controller: this.loginForm.controls.password,
+  }
 
   onSubmit() {
     console.warn(this.loginForm.value);
