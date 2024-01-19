@@ -1,0 +1,25 @@
+.container-success {
+    box-shadow: rgba(209, 234, 214, 0.8) 0px 3px 6px, rgb(209, 234, 214, 0.8) 0px 3px 6px;
+}
+
+.container-error {
+    box-shadow: rgb(248, 207, 208, 0.8) 0px 3px 6px, rgb(248, 207, 208, 0.8) 0px 3px 6px;
+}
+
+
+
+.timeout-bar {
+    height: 4px;
+    left: 0;
+    animation: timeout 2s linear;
+}
+
+@keyframes timeout {
+    0% {
+        width: 100%;
+    }
+
+    100% {
+        width: 0%;
+    }
+}

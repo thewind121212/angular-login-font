@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { json } from 'node:stream/consumers';
+import  {PromiseRegisterResponse} from "../utils/modals.utils"
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +7,7 @@ import { json } from 'node:stream/consumers';
 export class AuthService {
 
   constructor() { }
-  async registerUser(data: any): Promise<any> {
+  async registerUser(data: any): Promise<PromiseRegisterResponse | any> {
     const dataUser = JSON.stringify(data)
       const datafetch = await fetch('https://api.wliafdew.dev/account/register', {
         method: 'POST',
@@ -18,12 +18,17 @@ export class AuthService {
       })
     
     const  res = await datafetch.json()
+    const  promiseReturn = {
+      res,
+      status: datafetch.status
+    } 
+
     if (datafetch.status == 200) {
-      return Promise.resolve(res)
+      return Promise.resolve(promiseReturn)
     }
 
     if (datafetch.status !== 200) {
-      return Promise.reject(new Error(res))
+      return Promise.reject(promiseReturn)
     }
   }
 
@@ -38,12 +43,16 @@ export class AuthService {
       })
     
     const  res = await datafetch.json()
+    const  promiseReturn = {
+      res,
+      status: datafetch.status
+    } 
     if (datafetch.status == 200) {
-      return Promise.resolve(res)
+      return Promise.resolve(promiseReturn)
     }
 
     if (datafetch.status !== 200) {
-      return Promise.reject(new Error(res))
+      return Promise.reject(promiseReturn)
     }
   }
 

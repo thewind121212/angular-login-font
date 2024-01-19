@@ -7,12 +7,12 @@ import { InputComponent } from '../UI/input/input.component';
 import { InputInterface } from '../UI/input/input';
 import { Button } from '../UI/button/button';
 import { NgIf } from '@angular/common';
-import { misMatchValidator } from '../../utils/validatorFn.utils';
+import { misMatchValidator, userNameValidator, nameValidator, passwordValidator } from '../../utils/validatorFn.utils';
 import { ActivatedRoute, Router } from '@angular/router';
 import { isValidUUIDV4 } from "is-valid-uuid-v4";
 import { generateRegisterURl } from '../../utils/register.utils';
 import { AuthService } from '../auth.service';
-import { error } from 'node:console';
+import { ToastNotificationService } from '../toast-notification.service';
 
 
 
@@ -28,6 +28,7 @@ export class RegisterComponent {
   http = inject(HttpClient)
   uuid!: string
   authService = inject(AuthService)
+  notificationSerivce = inject(ToastNotificationService)
   validator: any[] = [
     Validators.required
   ]
@@ -36,7 +37,8 @@ export class RegisterComponent {
   ngOnInit(): void {
 
     this.registerForm.valueChanges.subscribe(() => {
-      this.submit.isDisabled = this.registerForm.invalid
+      // this.submit.isDisabled = this.registerForm.invalid
+      this.submit.isDisabled = false
     })
 
     const searchParams = this.route.snapshot.queryParams
@@ -61,12 +63,20 @@ export class RegisterComponent {
     userName: new FormControl('', [
       ...this.validator,
       Validators.minLength(8),
+      Validators.maxLength(50),
+      userNameValidator()
     ]),
     firstName: new FormControl('', [
       ...this.validator,
+      Validators.minLength(3),
+      Validators.maxLength(20),
+      nameValidator()
     ]),
     lastName: new FormControl('', [
       ...this.validator,
+      Validators.minLength(3),
+      Validators.maxLength(20),
+      nameValidator()
     ]),
     email: new FormControl('', [
       ...this.validator,
@@ -74,9 +84,12 @@ export class RegisterComponent {
     ]),
     phone: new FormControl('', [
       ...this.validator,
+      // fix later
     ]),
     password: new FormControl('', [
       ...this.validator,
+      Validators.minLength(8),
+      // passwordValidator()
     ]),
     verifyPassword: new FormControl('', [
       ...this.validator,
@@ -163,9 +176,9 @@ export class RegisterComponent {
 
   onSubmit() {
     this.submit.buttonStatus = 'loading'
-    if (!this.registerForm.valid) {
-      return
-    }
+    // if (!this.registerForm.valid) {
+    //   return
+    // }
 
 
     if (!this.uuid) {
@@ -187,15 +200,14 @@ export class RegisterComponent {
       uuid: this.uuid
     }
 
-    this.authService.registerUser(data).then(async (data) => {
-      await new Promise(resolve => setTimeout(resolve, 800))
+    this.authService.registerUser(data).then(async (res) => {
       this.submit.buttonStatus = 'normal'
       const urlVerifyOTP = { ...this.route.snapshot.queryParams, register_step: 'verify_with_otp', email: this.registerForm.get('email')?.value?.trim() }
+      this.notificationSerivce.pushToastNotification(res)
       this.router.navigate(['register'], { queryParams: urlVerifyOTP })
     }).catch(async (error) => {
-      await new Promise(resolve => setTimeout(resolve, 800))
       this.submit.buttonStatus = 'normal'
-      console.log(error)
+      this.notificationSerivce.pushToastNotification(error)
     })
 
   }

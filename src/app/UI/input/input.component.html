@@ -8,6 +8,10 @@
     {{ input.label }}
   </label>
   <input
+    *ngIf="
+      input.formControlName !== 'password' &&
+      input.formControlName !== 'verifyPassword'
+    "
     type="{{ input.type }}"
     id="{{ input.formControlName }}"
     class="h-[45px] border-[1.5px] border-[#DED2D9] rounded-md p-3"
@@ -20,28 +24,137 @@
   />
 
   <div
-    *ngIf="input.formControlName === 'password'"
-    class="w-[100%] flex justify-between flex-wrap items-center h-[40px] mt-[20px] overflow-hidden duration-300 px-[4px]"
-    [ngClass]="{ 'reset my-0 ': input.controller.value === '' }"
+    *ngIf="
+      input.formControlName === 'password' ||
+      input.formControlName === 'verifyPassword'
+    "
+    class="w-full h-auto relative"
   >
-    <div class="relative w-[100%] h-[5px] left-0 rounded-[2.5px] bg-[#06244F]">
+    <input
+      type="{{ showPassword ? 'text' : 'password' }}"
+      id="{{ input.formControlName }}"
+      class="h-[45px] w-full border-[1.5px] border-[#DED2D9] rounded-md p-3 duration-200"
+      [ngClass]="{
+        'border-[2px] border-red-600':
+          !validitorFunc(input.controller) && input.controller.dirty,
+        'border-[2px] border-green-600': validitorFunc(input.controller)
+      }"
+      formControlName="{{ input.formControlName }}"
+    />
+    <div
+      class="h-[45px] w-[45px] flex justify-center items-center absolute top-0 right-0"
+    >
       <div
-        class="streng {{
-          passwordStreng(input.controller, input.formControlName)
-        }} "
-        [ngClass]="{
-          notDirty: input.controller.value === ''
-        }"
-      ></div>
+        *ngIf="showPassword"
+        src="https://firebasestorage.googleapis.com/v0/b/static-only-2ff95.appspot.com/o/UI%2Fvisible.png?alt=media&token=12ae51a2-0dec-432b-af3b-72005648f089"
+        class="w-[20px] h-[20px]"
+        (click)="toggleShowPassword()"
+        alt=""
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+          <g id="Layer_16" data-name="Layer 16">
+            <path
+              d="m419.72 419.72-327.46-327.45-.07-.08a19 19 0 0 0 -26.78 27l28.67 28.67a332.64 332.64 0 0 0 -88.19 89 34.22 34.22 0 0 0 0 38.38c59.97 88.76 155.04 140.76 250.11 140.11a271.6 271.6 0 0 0 90.46-15.16l46.41 46.41a19 19 0 0 0 26.94-26.79zm-163.72-55.98a107.78 107.78 0 0 1 -98.17-152.18l29.95 29.95a69.75 69.75 0 0 0 82.71 82.71l29.95 29.95a107.23 107.23 0 0 1 -44.44 9.57z"
+            />
+            <path
+              d="m506.11 236.81c-59.97-88.81-155.04-140.81-250.11-140.16a271.6 271.6 0 0 0 -90.46 15.16l46 46a107.78 107.78 0 0 1 142.63 142.63l63.74 63.74a332.49 332.49 0 0 0 88.2-89 34.22 34.22 0 0 0 0-38.37z"
+            />
+            <path
+              d="m256 186.26a69.91 69.91 0 0 0 -14.49 1.52l82.71 82.7a69.74 69.74 0 0 0 -68.22-84.22z"
+            />
+          </g>
+        </svg>
+      </div>
+      <div
+        *ngIf="!showPassword"
+        src="https://firebasestorage.googleapis.com/v0/b/static-only-2ff95.appspot.com/o/UI%2Fvisible.png?alt=media&token=12ae51a2-0dec-432b-af3b-72005648f089"
+        class="w-[20px] h-[20px]"
+        (click)="toggleShowPassword()"
+        alt=""
+      >
+        <svg
+          class="w-full h-full"
+          xmlns="http://www.w3.org/2000/svg"
+          id="Layer_1"
+          enable-background="new 0 0 512 512"
+          height="512"
+          viewBox="0 0 512 512"
+          width="512"
+        >
+          <path
+            clip-rule="evenodd"
+            d="m153.349 255.994c0-56.578 46.02-102.617 102.659-102.617 56.579 0 102.598 46.038 102.598 102.617 0 56.591-46.019 102.61-102.598 102.61-56.64 0-102.659-46.019-102.659-102.61zm-124.815-9.79c-3.54 6.403-3.54 13.177 0 19.586 45.959 82.53 133.115 133.799 227.474 133.799 94.297 0 181.454-51.268 227.413-133.799 3.601-6.409 3.601-13.183 0-19.586-45.959-82.53-133.115-133.793-227.413-133.793-94.359 0-181.515 51.263-227.474 133.793zm227.474-59.197c-38.085 0-69.03 30.944-69.03 68.987 0 38.042 30.944 68.987 69.03 68.987 38.024 0 68.968-30.944 68.968-68.987s-30.944-68.987-68.968-68.987z"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </div>
     </div>
-    <div class="text-[14px] w-full flex justify-end items-right">
-      {{ passwordStreng(input.controller, input.formControlName) }}
-    </div>
+  </div>
+
+  <!-- error case -->
+  <div
+    *ngIf="!validitorFunc(input.controller) && input.controller.dirty"
+    class="w-full text-red-500 h-[10px] text-[12px] mb-[4px]"
+  >
+    <span *ngIf="input.controller.errors?.['required']"
+      >This field is required</span
+    >
+    <span *ngIf="!input.controller.errors?.['required']">
+      <span *ngIf="input.controller.errors?.['minlength']"
+        >Too short characters</span
+      >
+      <span *ngIf="input.controller.errors?.['maxlength']"
+        >Too long characters</span
+      >
+      <span *ngIf="input.controller.errors?.['NotValidName']"
+        >Invalid {{ input.label }}
+      </span>
+      <span *ngIf="input.controller.errors?.['NotValidUserName']"
+        >Invalid {{ input.label }}
+      </span>
+      <span *ngIf="input.controller.errors?.['email']"
+        >Invalid {{ input.label }}
+      </span>
+      <span *ngIf="input.controller.errors?.['invalidPassword'] === 'number' "
+        >Password must have atleast one number</span
+      >
+      <span
+        *ngIf="input.controller.errors?.['invalidPassword'] === 'uppercase' "
+        >Password must have atleast one uppercase letter
+      </span>
+      <span *ngIf="input.controller.errors?.['invalidPassword'] === 'symbol' "
+        >Password must have atleast one symbol
+      </span>
+      <span
+        *ngIf="!input.controller.errors?.['misMatch'] && input.formControlName === 'verifyPassword' "
+        >Passwords do not match</span
+      >
+    </span>
+  </div>
+</div>
+<!-- pass streng -->
+<div
+  *ngIf="input.formControlName === 'password'"
+  class="w-[100%] flex justify-between flex-wrap items-center h-[40px] mt-[20px] overflow-hidden duration-300 px-[4px]"
+  [ngClass]="{ 'reset my-0 ': input.controller.value === '' }"
+>
+  <div class="relative w-[100%] h-[5px] left-0 rounded-[2.5px] bg-[#06244F]">
+    <div
+      class="streng {{
+        passwordStreng(input.controller, input.formControlName)
+      }} "
+      [ngClass]="{
+        notDirty: input.controller.value === ''
+      }"
+    ></div>
+  </div>
+  <div class="text-[14px] w-full flex justify-end items-right">
+    {{ passwordStreng(input.controller, input.formControlName) }}
   </div>
 </div>
 <!-- input UI for OTP -->
 <div
-  class="w-[48px] h-[48px] bg-[#ECECEC] border-[#ECECEC]  border rounded-xl text-center overflow-hidden duration-200"
+  class="w-[48px] h-[48px] bg-[#ECECEC] border-[#ECECEC] border rounded-xl text-center overflow-hidden duration-200"
   [ngClass]="{ 'border-[#F87595] bg-[#f8759665]': otpError,}"
   *ngIf="input.label == 'none'"
   [formGroup]="input.formGroup"

@@ -8,6 +8,8 @@ import { NgIf } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../auth.service';
+import { ToastNotificationService } from '../toast-notification.service';
+
 
 
 @Component({
@@ -27,6 +29,8 @@ export class VerifyWithOtpComponent {
     otp5: new FormControl('', [Validators.required, Validators.minLength(1)]),
     otp6: new FormControl('', [Validators.required, Validators.minLength(1)]),
   })
+
+  notificationSerivce = inject(ToastNotificationService)
 
 
 
@@ -201,17 +205,16 @@ export class VerifyWithOtpComponent {
       otp: otp
     }
 
-    this.authService.verifyOtp(data).then(async (data) => {
-      await new Promise(resolve => setTimeout(resolve, 800))
+    this.authService.verifyOtp(data).then(async (res) => {
       this.isOTPError = false
       this.verifyStatus = 'complete'
       this.verifyBtn.buttonStatus = 'normal'
+      this.notificationSerivce.pushToastNotification(res)
       
     }).catch(async (error) => {
-      await new Promise(resolve => setTimeout(resolve, 800))
       this.isOTPError = true
       this.verifyBtn.buttonStatus = 'normal'
-      console.log(error)
+      this.notificationSerivce.pushToastNotification(error)
     })
 
   }

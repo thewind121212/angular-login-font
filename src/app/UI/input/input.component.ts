@@ -17,8 +17,14 @@ export class InputComponent {
   @Input() validitorFunc: (controller: FormControl) => boolean;
   @Input() passwordStreng: (form: FormControl, formName: string) => void
   @Input() otpError: boolean = false
+  @Input() showPassword: boolean = false
 
   @ViewChild('otpInput') otpInput!: ElementRef
+
+
+  toggleShowPassword() {
+    this.showPassword = !this.showPassword
+  }
 
   constructor() {
     this.validitorFunc = (controller) => {

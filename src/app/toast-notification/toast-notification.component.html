@@ -1,0 +1,31 @@
+<div
+  class="container-success right-[-350px] w-[350px] h-[60px] bg-[#EBFBEE] rounded-md overflow-hidden fixed top-[15%] z-20 duration-300"
+  [ngClass]="{ 'right-[0px]': notificaitonModel.isOpen, 'bg-[#FEF5F5] container-error ': notificaitonModel.type === 'error'}"
+>
+  <div class="w-full h-full flex justify-center items-center relative">
+    <div class="w-full h-[3px] bg-[#319F46] absolute top-0" [ngClass]="{'timeout-bar' : notificaitonModel.isOpen, 'bg-[#E03131]' : notificaitonModel.type === 'error'}"></div>
+    <div class="w-[10px] bg-green-400 h-full" [ngClass]="{'bg-red-400' : notificaitonModel.type === 'error' }"></div>
+    <div class="w-full h-auto flex justify-between items-center p-[8px]">
+      <div class="content h-full">
+        <h1 *ngIf="notificaitonModel.type === 'success'"  class="text-[#1F702F] text-[14px]">Success!</h1>
+        <h1 *ngIf="notificaitonModel.type === 'error'" class="text-[#CB3232] text-[14px]">Error!</h1>
+        <div class="text-[12px] text-[#75ac80]"  [ngClass]="{'text-[#E99F9E]' : notificaitonModel.type === 'error'}" >
+            {{ notificaitonModel.message }}
+        </div>
+      </div>
+      <div class="remote h-[12px] w-[12px] cursor-pointer">
+        <svg
+          class="w-full h-full"
+          xmlns="http://www.w3.org/2000/svg"
+          height="329pt"
+          viewBox="0 0 329.26933 329"
+          width="329pt"
+        >
+          <path
+            d="m194.800781 164.769531 128.210938-128.214843c8.34375-8.339844 8.34375-21.824219 0-30.164063-8.339844-8.339844-21.824219-8.339844-30.164063 0l-128.214844 128.214844-128.210937-128.214844c-8.34375-8.339844-21.824219-8.339844-30.164063 0-8.34375 8.339844-8.34375 21.824219 0 30.164063l128.210938 128.214843-128.210938 128.214844c-8.34375 8.339844-8.34375 21.824219 0 30.164063 4.15625 4.160156 9.621094 6.25 15.082032 6.25 5.460937 0 10.921875-2.089844 15.082031-6.25l128.210937-128.214844 128.214844 128.214844c4.160156 4.160156 9.621094 6.25 15.082032 6.25 5.460937 0 10.921874-2.089844 15.082031-6.25 8.34375-8.339844 8.34375-21.824219 0-30.164063zm0 0"
+          />
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
