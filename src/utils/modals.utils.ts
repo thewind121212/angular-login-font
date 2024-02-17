@@ -21,3 +21,14 @@ export interface ToastNotificationModal {
     duration?: number;
     isClosable?: boolean;
 }
+
+//Internal Error
+
+export const InternalError :PromiseRegisterResponse = {
+    res: {
+        message: "Internal Error please try again later",
+        type: "Internal Error",
+        errors: "Internal Error"
+    },
+    status: 500
+}

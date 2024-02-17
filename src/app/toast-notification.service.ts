@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, last, lastValueFrom } from 'rxjs';
+import { BehaviorSubject, } from 'rxjs';
 import { PromiseRegisterResponse } from "../utils/modals.utils"
 
 @Injectable({
@@ -13,9 +13,11 @@ export class ToastNotificationService {
 
   pushToastNotification(notificationContent: PromiseRegisterResponse): void {
     const currentValue = this.notificationState.getValue()
+    if (currentValue.length !== 0 && notificationContent.res.type === currentValue[currentValue.length-1].res.type) {
+        return 
+    }
     const newStack: PromiseRegisterResponse[] = currentValue ? [...currentValue] : []
     newStack.push(notificationContent)
-    console.log(newStack)
     this.notificationState.next(newStack)
   }
 

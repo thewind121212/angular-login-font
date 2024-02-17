@@ -49,3 +49,7 @@
 <section *ngIf="route.snapshot.queryParams['register_step'] === 'verify_with_otp'" >
 <app-verify-with-otp></app-verify-with-otp>
 </section>
+
+<section *ngIf="route.snapshot.queryParams['register_step'] === 'verify_with_jwt'" >
+<app-verify-with-jwt></app-verify-with-jwt>
+</section>

@@ -209,12 +209,12 @@ export class VerifyWithOtpComponent {
       this.isOTPError = false
       this.verifyStatus = 'complete'
       this.verifyBtn.buttonStatus = 'normal'
-      this.notificationSerivce.pushToastNotification(res)
+      // this.notificationSerivce.pushToastNotification(res)
       
     }).catch(async (error) => {
       this.isOTPError = true
       this.verifyBtn.buttonStatus = 'normal'
-      this.notificationSerivce.pushToastNotification(error)
+      // this.notificationSerivce.pushToastNotification(error)
     })
 
   }

@@ -3,6 +3,7 @@ import { HttpClient, HttpClientModule, HttpHeaders, HttpRequest, HttpResponse } 
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonComponent } from '../UI/button/button.component';
 import { VerifyWithOtpComponent } from '../verify-with-otp/verify-with-otp.component';
+import { VerifyWithJwtComponent } from '../verify-with-jwt/verify-with-jwt.component';
 import { InputComponent } from '../UI/input/input.component';
 import { InputInterface } from '../UI/input/input';
 import { Button } from '../UI/button/button';
@@ -19,7 +20,7 @@ import { ToastNotificationService } from '../toast-notification.service';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, ButtonComponent, InputComponent, HttpClientModule, NgIf, VerifyWithOtpComponent],
+  imports: [ReactiveFormsModule, ButtonComponent, InputComponent, HttpClientModule, NgIf, VerifyWithOtpComponent, VerifyWithJwtComponent],
   templateUrl: './register.component.html',
 })
 export class RegisterComponent {
@@ -50,7 +51,7 @@ export class RegisterComponent {
     }
     this.uuid = searchParams['uuid']
 
-    if (searchParams['register_step'] !== 'signupForm' && searchParams['register_step'] !== 'verify_with_otp') {
+    if (searchParams['register_step'] !== 'signupForm' && searchParams['register_step'] !== 'verify_with_otp' && searchParams['register_step'] !== 'verify_with_jwt') {
       this.router.navigate(['404'])
       return
     }
@@ -89,7 +90,7 @@ export class RegisterComponent {
     password: new FormControl('', [
       ...this.validator,
       Validators.minLength(8),
-      // passwordValidator()
+      passwordValidator()
     ]),
     verifyPassword: new FormControl('', [
       ...this.validator,
@@ -175,6 +176,7 @@ export class RegisterComponent {
   }
 
   onSubmit() {
+    console.log('run')
     this.submit.buttonStatus = 'loading'
     // if (!this.registerForm.valid) {
     //   return

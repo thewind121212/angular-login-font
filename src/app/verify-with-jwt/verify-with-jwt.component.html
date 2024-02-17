@@ -1,0 +1,14 @@
+<div  *ngIf="verifyStatus ==='loading'" class="w-full h-[97vh] flex justify-center items-center">
+    <img  class="w-[100px] h-auto" src="https://firebasestorage.googleapis.com/v0/b/static-only-2ff95.appspot.com/o/UI%2F3469046.gif?alt=media&token=6a897992-99e1-4307-8a2e-8fd1c6986a7e" alt="">
+    <div class="text-[17px] text-gray-800" (click)="verify()">Verifying Your Account</div>
+</div>
+
+<div *ngIf="verifyStatus ==='error'" class="w-full h-[97vh] flex justify-center items-center">
+    <img   class="w-[100px] h-auto" src="https://firebasestorage.googleapis.com/v0/b/static-only-2ff95.appspot.com/o/UI%2Ferrorr.gif?alt=media&token=32b60135-b592-4ad7-84bf-c33bc2d777da" alt="">
+    <div class="animation-error text-[17px] text-gray-800">Fail To Verify Your Account Please Try Again</div>
+</div>
+
+<div *ngIf="verifyStatus ==='success'" class="w-full h-[97vh] flex justify-center items-center">
+    <img  class="w-[70px] h-auto" src="https://firebasestorage.googleapis.com/v0/b/static-only-2ff95.appspot.com/o/UI%2Fsuccess.gif?alt=media&token=d5b98d8c-3c62-49a8-bbea-ba1b5a1847f0" alt="">
+    <div class="animation-error text-[17px] text-gray-800">Sucess Verify You Account, Redirect ...</div>
+</div>c
